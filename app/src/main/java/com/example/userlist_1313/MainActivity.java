@@ -1,13 +1,11 @@
-package com.example.userlist_1147; // название пакета с названем от прошлого проекта
+package com.example.userlist_1313; // название пакета с названем от прошлого проекта
 // импортируем нужные классы
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
