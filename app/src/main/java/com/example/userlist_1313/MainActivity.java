@@ -75,6 +75,13 @@ public class MainActivity extends AppCompatActivity { // наследуется 
             // все что будет написано в форму должно отправляться в б.д. и менять ее
             // удаление обязательно. Редактирование дополнительно (можно не делать)
             Toast.makeText(MainActivity.this, "ItemClick", Toast.LENGTH_SHORT).show(); // короткое уведомление о клике
+            Intent intentInfo = new Intent(MainActivity.this, InfoUserActivity.class); // Создаем намерение переключиться из текущей активности в информацию о пользователе
+            //------КАК передать текущего пользователя!
+            //String test  = userList.get(0).getUuid().toString(); // -
+            String test = " Тестовая строка"; // Удалить
+            intentInfo.putExtra("varuousName", test); // передаем данные в инфоАктивностт
+            startActivity(intentInfo); // запускаем активность
+            //ArrayList<User> userList = new ArrayList<User>();
         }
     }
 
@@ -95,6 +102,7 @@ public class MainActivity extends AppCompatActivity { // наследуется 
             User user = userList.get(position); // берем пользователя по порядку (по позиции)
             String userName = user.getUserName()+"  "+user.getUserLastName()+"  "+user.getPhone(); // каждая позиция списка //position - иттератор, индекс позиции
             userHolder.bind(userName); // привязывается к userHolder
+
         }// связывает макет элемента с данными элемента // на терелку положи еду // данная конкретная еда лежит именно в этой тарелке
 
         @Override

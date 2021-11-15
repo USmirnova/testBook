@@ -5,4 +5,8 @@
     <string name="nameUser">Имя пользователя:</string>
     <string name="lastNameUser">Фамилия пользователя:</string>
     <string name="phoneUser">Телефон: +7...</string>
+    <string name="phoneNumber">Номер телефона: </string>
+    <string name="infoUserText">Информация о пользователе</string>
+    <string name="editUser">Редактировать</string>
+    <string name="deleteUser">Удалить</string>
 </resources>
