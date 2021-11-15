@@ -1,0 +1,78 @@
+package com.example.userlist_1313;
+// Для управления пользователями.
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import com.example.userlist_1313.database.UserBaseHalper;
+import com.example.userlist_1313.database.UserDBSchema;
+import java.util.ArrayList;
+
+public class Users {
+    ArrayList<User> userList;
+    private SQLiteDatabase database; // Объект для работы с б.д.
+    public Users(Context context) { // инициализируем - cоздаем конструктор, где принимаем контекст
+        this.database = new UserBaseHalper(context).getWritableDatabase(); // чтобы можно было писать что-то в б.д. .getWritableDatabase()
+    }
+
+    // при добавлении пользователя в б.д. будем передавать сюда объект пользователя и здесь раскладывать его по колонкам
+    private ContentValues getContentValues(User user) { // приватный. Будет доступен только в этом классе
+        ContentValues values = new ContentValues(); // создаеt объект ContentValues
+        // положить (в столбец ... кладем соответствующие данные пользователя)
+        values.put(UserDBSchema.Cols.UUID, user.getUuid().toString()); // в столбец uuid кладем собственно uuid (тип данных UUID), преобразованное в строку)
+        values.put(UserDBSchema.Cols.USERNAME, user.getUserName()); // username -> имя пользователя
+        values.put(UserDBSchema.Cols.USERLASTNAME, user.getUserLastName()); // userlastname -> фамилия пользователя
+        values.put(UserDBSchema.Cols.PHONE, user.getPhone()); // phone -> его телефон
+
+        return values; // возвращаем его // тип данных ContentValues
+    }
+
+    public void addUser(User user) { // insert для того чтобы вставить что-то в б.д.
+        ContentValues values = getContentValues(user); // создаем ContentValues и наполняем нужными параметрами - передаем пользователя из которого он сделает наполнение для б.д.
+        database.insert(UserDBSchema.UserTable.NAME, null, values); // перекачивает данные конкретного юзера в поля таблицы
+        // указываем название нужной таблицы (ведь их может быть несколько)
+        // некоторые поля должны быть обязательны для заполнения и им нужны данные по умолчанию nullColumnHuck. Если таких полей нет, пишем null.
+        // третий параметр contentValues - создаем ее в этом методе и передаем.
+    }
+
+
+
+    // метод получения пользователей // считывания их из б.д.
+    // для считывания данных из б.д. нам нужен курсор - бродилка по строкам таблицы
+    // в андроиде есть класс CursorWrapper, но он возвращает данные в безобразном виде
+    // Чтобы привести данные в адекватный вид создаем класс-прослойку UserCursorWrapper
+
+    private UserCursorWrapper queryUsers() { // получаем наш курсор
+        // создаем низкоуровневый курсор, который возвращает сырые данные
+        // делаем запрос к базе данных database.query(). Указываем название таблицы и название колонок, которые нам нужны
+        //  и другие параметры, группы, выделенные области...
+        // т.к. нужны нам все, то передаем null, null, null...
+        Cursor cursor = database.query(UserDBSchema.UserTable.NAME, null, null, null, null, null, null);
+        return new UserCursorWrapper(cursor); // сырой курсор оборачиваем в наш подготовленный курсор
+    } // возвращаем объект нашего курсора
+
+    public ArrayList<User> getUserList() { // возвращает список пользователей с типом данных ArrayList<Users>
+        this.userList = new ArrayList();
+        UserCursorWrapper cursorWrapper = queryUsers(); //получаем объект курсора
+        try {
+            cursorWrapper.moveToFirst(); // перемещаем курсор к первой записи в таблице
+            while (!cursorWrapper.isAfterLast()) { // считываем до тех пор пока не настала после последняя запись
+                User user = cursorWrapper.getUser(); // вычитываем первую запись
+                userList.add(user); // добавили в коллекцию
+                cursorWrapper.moveToNext(); // перемещаем курсор к следующей строке
+            }
+        }
+        finally { // чтобы не произошло в процессе (исключения, или все хорошо) закрываем курсор
+            cursorWrapper.close(); // после работы с б.д. нужно ее закрыть (закрыть подключение?)
+        }
+
+
+        /*for (int i = 0; i < 100; i++) { // формируем  список контактов
+            User user = new User(); // создаем объект пользователя, с uuid
+            user.setUserName("Имя_"+i); // задаем имя
+            user.setUserLastName("Фамилия_"+i); // и фамилию
+            userList.add(user);// Добавляем пользователя в коллекцию пользователей
+        }*/
+        return userList; // возвращает список пользователей
+    }
+}
