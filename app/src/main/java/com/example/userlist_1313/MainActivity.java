@@ -15,20 +15,21 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity { // наследуется от AppCompatActivity
+public class MainActivity extends AppCompatActivity { // наследуется от AppCompatActivity //изначально есть в активности
     RecyclerView recyclerView; // объявляем переменную компонента RecyclerView
     UserAdapter userAdapter; // объявляем адаптер
-    Button addUserBtn;
+    Button addUserBtn; // кнопка добавления пользователя
     Users users; // создаем объект, отвечающий за взаимоедействие с пользователями
 
     @Override // переопределяем метод
     protected void onCreate(Bundle savedInstanceState) { // создание активности c объектом для сохранения состояния
         super.onCreate(savedInstanceState); //? вызов родительского метода с объектом bundle - информация о состоянии активности ?
         setContentView(R.layout.activity_main); // построение макета
-        users = new Users(MainActivity.this); // объекту, отвечающий за взаимоедействие с пользователями передаем текущую активность
+
+        users = new Users(MainActivity.this); // создаем обект Users, отвечающий за взаимоедействие с пользователями передаем текущую активность в качестве контекста
         recyclerView = findViewById(R.id.recyclerView); // находим по id
-        addUserBtn = findViewById(R.id.addUserBtn);
-        addUserBtn.setOnClickListener(new View.OnClickListener() {
+        addUserBtn = findViewById(R.id.addUserBtn); // Кнопка добавления пользователя
+        addUserBtn.setOnClickListener(new View.OnClickListener() { // вешаем событие на нее
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AddUserActivity.class); // Создаем намерение переключиться из текущей активности в ту где будем добавлять пользователя
@@ -50,42 +51,43 @@ public class MainActivity extends AppCompatActivity { // наследуется 
     }
 
     // Для создания каждого элемента списка
-    public class UserHolder extends RecyclerView.ViewHolder implements View.OnClickListener{ // Класс для настройки самого элемента, наследуемый от RecyclerView.ViewHolder. Свойство itemView из него.
+    // Класс для настройки самого элемента, наследуемый от RecyclerView.ViewHolder. Свойство itemView из него.
+    // интерфейс View.OnClickListener - чтобы элементы были кликабельны. Реализуем onClick()
+    public class UserHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView itemTextView; // Объявляем переменную текстовой вьюшки из макете элемента
-        String userName; // имя контакта
-        public UserHolder(LayoutInflater inflater, ViewGroup viewGroup) { //? Конструктор класса элемента списка // принимает инфлятор и объект viewGroup (андроид его сам создает, наша задача передать его дальше) на котором будут расположены все виджеты данного приложения?
+        String userParameters; // параметры контакта, которые будем выводить в списке RecyclerView, например имя и фамилию
+        int userPosition; // для поиска юзера в списке // передавать будем в bind
+
+        public UserHolder(LayoutInflater inflater, ViewGroup viewGroup) { //Конструктор класса элемента списка // принимает инфлятор и объект viewGroup (андроид его сам создает, наша задача передать его дальше) на котором будут расположены все виджеты данного приложения?
             super(inflater.inflate(R.layout.single_item, viewGroup, false)); //?? вызываем родительский метод?, передаем в него раздуватель, тот раздувает макет элемента с группой виджетов и еще false зачем-то
             itemTextView = itemView.findViewById(R.id.itemTextView); //на раздутом макете - свойство itemView - свойство из класса RecyclerView.ViewHolder от которого наследуется данный класс находим вьюшку по id
             itemView.setOnClickListener(this); // связали текущий элемент с кликом
         } // самая непонятная фиговина, наполнитель экрана виджетами(вьюхами)?
         // инфлятор раздувает макет, чтобы на нем можно было разместить визуальные компоненты (кнопки, текст, и т.д.)
         // до этого макет сколлапсирован, как сингулярность?
-        public void bind(String userName) { // укладывает данные,
-            this.userName = userName; // переданные в параметре
-            itemTextView.setText(userName); // в текстовую вьюшку каждого холдера (макета элемента)
+
+        public void bind(String userParameters, int position) { // укладывает данные, // сюда впихнем и позицию юзера
+            this.userParameters = userParameters; // переданные в параметре
+            this.userPosition = position; // присвоим позицию текущего пользователя // нужно для редактирования и удаления юзеров
+            itemTextView.setText(userParameters); // в текстовую вьюшку каждого холдера (макета элемента)
+
         } // вызывается в методе onBindViewHolder, в который мы передаем userHolder
 
         // чтобы элемент стал кликабельным нужно наследоваться или подписываться на класс View.OnClickListener и реализовывать onClick метод
         @Override // теперь каждый элемент списка будет кликабельным
-        public void onClick(View view) {
-            // сделать редактирование надо
-            // при клике открывать новую активность с формой для редактирования
-            // вывести информацию о пользователе, возможнось редактирования на новой активности
-            // и кнопку "удалить"
-            // все что будет написано в форму должно отправляться в б.д. и менять ее
-            // удаление обязательно. Редактирование дополнительно (можно не делать)
-            Toast.makeText(MainActivity.this, "ItemClick", Toast.LENGTH_SHORT).show(); // короткое уведомление о клике
-            Intent intentInfo = new Intent(MainActivity.this, InfoUserActivity.class); // Создаем намерение переключиться из текущей активности в информацию о пользователе
+        public void onClick(View view) { // Здесь определяются действия, которые будут происходить по клику
+            //Toast.makeText(MainActivity.this, "ItemClick", Toast.LENGTH_SHORT).show(); // короткое уведомление о клике
+            Intent intent = new Intent(MainActivity.this, InfoUserActivity.class); // Создаем намерение переключиться из текущей активности в информацию о пользователе
             //------КАК передать текущего пользователя!
             //String test  = userList.get(0).getUuid().toString(); // -
-            String test = " Тестовая строка"; // Удалить
-            intentInfo.putExtra("varuousName", test); // передаем данные в инфоАктивностт
-            startActivity(intentInfo); // запускаем активность
-            //ArrayList<User> userList = new ArrayList<User>();
+            //int userPosition = this.userPosition;//" Тестовая строка"; // Удалить
+            intent.putExtra("userPosition", this.userPosition); // передаем данные в инфоАктивность
+            startActivity(intent); // запускаем активность
         }
-    }
+    }//class UserHolder
 
-    public class UserAdapter extends RecyclerView.Adapter<UserHolder> { // Класс для размещения элементов наследуется (расширяет) RecyclerView.Adapter<UserHolder>
+    // Класс для размещения элементов. Наследуется (расширяет) RecyclerView.Adapter<UserHolder>
+    public class UserAdapter extends RecyclerView.Adapter<UserHolder> {
         ArrayList<User> userList; // = new ArrayList<>(); можно не писать тут
         public UserAdapter(ArrayList<User> userList) { // инициируем конструктор, чтобы можно было принимать коллекцию контактов при создание объекта адаптера
             this.userList = userList; // коллекцию через параметр
@@ -98,16 +100,16 @@ public class MainActivity extends AppCompatActivity { // наследуется 
         }// создает холдеры когда они требуются // они пока пустые, данные еще не привязана // тарелку создали, еду не положили
 
         @Override // получим в телефоне список формата: Имя_nn Фамилия_nn
-        public void onBindViewHolder(UserHolder userHolder, int position) { //Привязывает данные пользователя к userHolder
-            User user = userList.get(position); // берем пользователя по порядку (по позиции)
-            String userName = user.getUserName()+"  "+user.getUserLastName()+"  "+user.getPhone(); // каждая позиция списка //position - иттератор, индекс позиции
-            userHolder.bind(userName); // привязывается к userHolder
-
-        }// связывает макет элемента с данными элемента // на терелку положи еду // данная конкретная еда лежит именно в этой тарелке
+        public void onBindViewHolder(UserHolder userHolder, int position) { // Привязывает данные пользователя к  плашке userHolder
+            User user = userList.get(position); // берем пользователя по порядку (по позиции) // здесь позиция изначально включена в метод
+            String userParameters = user.getUserName()+"  "+user.getUserLastName()+"  "+user.getPhone(); // каждую позицию списка //position - иттератор, индекс позиции
+            userHolder.bind(userParameters, position); // привязывается к userHolder // здесь же передадим позицию юзера
+            // у userHolder вызываем метод bind(), который осуществляет привязку
+        }// связывает макет элемента с данными элемента // на терелку положи еду // данная конкретная еда лежит именно на этой тарелке
 
         @Override
         public int getItemCount() { // Количество элементов всего
             return userList.size(); // В данном случае вернет к-во элементов коллекции контактов
         }
-    }
+    }//class UserAdapter
 }

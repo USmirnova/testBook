@@ -12,7 +12,7 @@ public class UserCursorWrapper extends CursorWrapper {
     public UserCursorWrapper(Cursor cursor) { // обязаны вызвать этот конструктор
         super(cursor);
     }
-    public User getUser() {
+    public User getUser() { // формирует объект пользователя
         // в бд мы клали uuid, преобразованный в строку, значит и считывать из бд будем строку
         // все данные берем из UserDBSchema // это очень удобно // поменяли в одном месте - измелись данные везде.
         // для этого создавали класс UserDBSchema // не нужно писать название столбца везде строкой, лучше ссылаться на константу

@@ -9,34 +9,33 @@
     tools:context=".InfoUserActivity">
 
     <TextView
-        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="5dp"
         android:text="@string/infoUserText"
         android:textSize="20sp" />
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
 
     <TextView
-        android:id="@+id/infoUserName"
+        android:id="@+id/infoUserFio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/nameUser" />
-
-    <TextView
-        android:id="@+id/infoUserLastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/lastNameUser" />
+        android:paddingLeft="20dp"
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/infoUserPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="@string/phoneNumber" />
+        android:paddingLeft="20dp"
+        android:textSize="20sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"

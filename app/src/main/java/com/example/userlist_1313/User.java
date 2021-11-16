@@ -1,8 +1,7 @@
 package com.example.userlist_1313;
-
+// Класс пользователя. Для задания параметров по каждому контакту: Фамилия, Имя, телефон, uuid
 import java.util.UUID;
 
-// Класс пользователя. Для задания параметров по каждому контакту.
 public class User {
     private String userName;
     private String userLastName;
