@@ -13,7 +13,7 @@
             android:name=".InfoUserActivity"
             android:exported="false" />
         <activity
-            android:name=".AddUserActivity"
+            android:name=".FormUserActivity"
             android:exported="false" />
         <activity android:name=".MainActivity">
             <intent-filter>

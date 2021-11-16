@@ -78,6 +78,14 @@ public class Users {
         return userList; // возвращает список пользователей
     }
 
+    public void updateUser(User user) {
+        ContentValues values = getContentValues(user); // разложим пользователя по колонкам, сопоставим.
+        String uuidString = user.getUuid().toString();
+        database.update(UserDBSchema.UserTable.NAME,
+                values,
+                UserDBSchema.Cols.UUID+"=?", new String[]{uuidString}); // подготовленный запрос, против sql инъекции
+    }
+
     public void deleteUser (UUID uuid) { // удаление пользователя
         String uuidString = uuid.toString(); // uuid - это объект, а при обращении к б.д. мы не можем слать объект, приобразуем его в строку.
         // нужно сопоставить данные колонки uuid и переданный uuid

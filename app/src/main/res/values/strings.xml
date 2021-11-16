@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">userList_1313</string>
     <string name="addUserText">Добавить пользователя</string>
-    <string name="addText">Добавить</string>
+    <string name="saveText">Сохранить</string>
     <string name="nameUser">Имя пользователя:</string>
     <string name="lastNameUser">Фамилия пользователя:</string>
     <string name="phoneUser">Телефон: +7...</string>
@@ -9,4 +9,5 @@
     <string name="infoUserText">Информация о пользователе</string>
     <string name="editUser">Редактировать</string>
     <string name="deleteUser">Удалить</string>
+    <string name="backInMainText">Вернуться на главный экран</string>
 </resources>

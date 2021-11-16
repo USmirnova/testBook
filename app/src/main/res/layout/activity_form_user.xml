@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AddUserActivity">
+    tools:context=".FormUserActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -50,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="@string/addText"
+        android:text="@string/saveText"
         android:textSize="20sp" />
 
 </LinearLayout>

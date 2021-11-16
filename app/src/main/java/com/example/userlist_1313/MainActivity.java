@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -32,7 +31,7 @@ public class MainActivity extends AppCompatActivity { // наследуется 
         addUserBtn.setOnClickListener(new View.OnClickListener() { // вешаем событие на нее
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddUserActivity.class); // Создаем намерение переключиться из текущей активности в ту где будем добавлять пользователя
+                Intent intent = new Intent(MainActivity.this, FormUserActivity.class); // Создаем намерение переключиться из текущей активности в ту где будем добавлять пользователя
                 startActivity(intent); // запускаем активность
             }
         });
