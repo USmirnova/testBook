@@ -39,6 +39,7 @@ public class InfoUserActivity extends AppCompatActivity { // создаем св
                 Intent intent = new Intent(InfoUserActivity.this, FormUserActivity.class);
                 intent.putExtra("userPosition", userPosition); // передаем позицию в форму
                 startActivity(intent); // запускаем активность
+                finish(); // возвращение на главную активность, минуя промежуточные
                 Toast.makeText(InfoUserActivity.this, "Редактирование...", Toast.LENGTH_SHORT).show(); // короткое уведомление об удалении контакта
             }
         });
@@ -50,14 +51,15 @@ public class InfoUserActivity extends AppCompatActivity { // создаем св
                 // закрыть б.д.
                 Toast.makeText(InfoUserActivity.this, "Удаление...", Toast.LENGTH_SHORT).show(); // короткое уведомление об удалении контакта
                 users.deleteUser(user.getUuid());
-                onBackPressed();// возвращаемся обратно на главную активность
+                onBackPressed();// возвращаемся на предыдущую активность
+
             }
         });
 
         backMainBtn.setOnClickListener(new View.OnClickListener() { //удаление контакта
             @Override
             public void onClick(View view) {
-                onBackPressed();// возвращаемся обратно на главную активность
+                onBackPressed();// возвращаемся на предыдущую активность
             }
         });
     }//onCreate

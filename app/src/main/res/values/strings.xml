@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">userList_1313</string>
+    <string name="app_name">Телефонная книга. Фрагменты.</string>
     <string name="addUserText">Добавить пользователя</string>
     <string name="saveText">Сохранить</string>
     <string name="nameUser">Имя пользователя:</string>
