@@ -16,6 +16,6 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = new UserListFragment(); // создали сам фрагмент
         //Для размещения этого фрагмента на экране обращаемся к менеджеру фрагментов
         // id контейнера, куда будем помещать фрагмент; сам фрагмент; 3й параметр - тег-название, но пока не обязательно
-        fragmentManager.beginTransaction().add(R.id.fragmentContainer, fragment).commit();
+        fragmentManager.beginTransaction().add(R.id.fragmentContainer, fragment).commit(); // с помощью фрагмент-менеджера устанавливаем на экране этот фрагмент
     }
 }

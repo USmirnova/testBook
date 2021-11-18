@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UserList_1313">
         <activity
+            android:name=".UserPagerActivity"
+            android:exported="false" />
+        <activity
             android:name=".InfoUserActivity"
             android:exported="false" />
         <activity

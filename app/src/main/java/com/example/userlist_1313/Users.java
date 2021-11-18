@@ -88,6 +88,7 @@ public class Users {
 
     public void deleteUser (UUID uuid) { // удаление пользователя
         String uuidString = uuid.toString(); // uuid - это объект, а при обращении к б.д. мы не можем слать объект, приобразуем его в строку.
+        System.out.println("----------------------удаляем---------------------------"+uuidString);
         // нужно сопоставить данные колонки uuid и переданный uuid
         // database.delete(UserDBSchema.UserTable.NAME, UserDBSchema.Cols.UUID+"="+uuidString); // опасность sql инъекции
         // безопасно делать это через подготовленные запросы

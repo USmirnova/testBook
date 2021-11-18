@@ -1,8 +1,9 @@
 package com.example.userlist_1313;
 // Класс пользователя. Для задания параметров по каждому контакту: Фамилия, Имя, телефон, uuid
+import java.io.Serializable;
 import java.util.UUID;
 
-public class User {
+public class User implements Serializable {
     private String userName;
     private String userLastName;
     private String phone; // + это не число, поэтому номер в формате +7... будет строкой

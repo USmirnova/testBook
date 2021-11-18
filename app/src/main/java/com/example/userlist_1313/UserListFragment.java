@@ -76,10 +76,9 @@ public class UserListFragment extends Fragment {
         @Override // теперь каждый элемент списка будет кликабельным
         public void onClick(View view) { // Здесь определяются действия, которые будут происходить по клику
             //Toast.makeText(MainActivity.this, "ItemClick", Toast.LENGTH_SHORT).show(); // короткое уведомление о клике
-            Intent intent = new Intent(getContext(), InfoUserActivity.class); // Создаем намерение переключиться из текущей активности в информацию о пользователе
-            //------КАК передать текущего пользователя!
-            //String test  = userList.get(0).getUuid().toString(); // -
-            //int userPosition = this.userPosition;//" Тестовая строка"; // Удалить
+            // теперь при клике на пользователя будет открываться новая активность, на которой будет расположен фрагмент
+            Intent intent = new Intent(getContext(), UserPagerActivity.class); // Создаем намерение переключиться из текущей активности в информацию о пользователе
+
             intent.putExtra("userPosition", this.userPosition); // передаем данные в инфоАктивность
             startActivity(intent); // запускаем активность
         }
