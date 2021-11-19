@@ -20,7 +20,7 @@ public class UserInfoFragment extends Fragment {
     Button backMainBtn;
     User user;
     Users users;
-    int userPosition; // ??
+    int userPosition; //
     // при создании фрагмента нагрузим его параметрами
     // передадим ему пользователя как сериализованный объект
     @Override

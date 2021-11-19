@@ -8,7 +8,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
-public class UserPagerActivity<UserPagerActivity> extends AppCompatActivity {
+public class UserPagerActivity extends AppCompatActivity {
     private ViewPager viewPager; // чтобы добраться до layout viewPager
     private Users users; // для списка пользователей // приватная. Только для обращения к ней в этом классе
     private int userPosition;
@@ -19,8 +19,9 @@ public class UserPagerActivity<UserPagerActivity> extends AppCompatActivity {
         userPosition = getIntent().getIntExtra("userPosition", 0);
         viewPager = findViewById(R.id.userViewPager); // находим его на активности
         FragmentManager fragmentManager = getSupportFragmentManager(); // чтобы можно было менять фрагменты на активности нашего приложения
-        users = new Users(getApplicationContext()); // getApplicationContext()
-        //users = new Users(UserPagerActivity.this); //'UserPagerActivity' is not an enclosing class: №строки
+        users = new Users(UserPagerActivity.this); // была ошибка - 'UserPagerActivity' is not an enclosing class: №строки
+        // это из-за <> в объявлении класса UserPagerActivity<UserPagerActivity> extends AppCompatActivity // удалить <> и их содержимое
+        //users = new Users(getApplicationContext()); // это был выход из положения на тот момент. найден случайно. 
         viewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) { // устанавливаем адаптер с устаревшим методом (про актуальный не рассказали)
             @Override
             public Fragment getItem(int position) {
