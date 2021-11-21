@@ -15,6 +15,8 @@ public class UserDBSchema {
         public static final String USERNAME = "username";
         public static final String USERLASTNAME = "userlastname";
         public static final String PHONE = "phone";
+
+        public static final String ID = "id";
         // столбец id будет создаваться в запросе, который пойдет к б.д.
     }
 }

@@ -21,7 +21,7 @@ public class UserPagerActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager(); // чтобы можно было менять фрагменты на активности нашего приложения
         users = new Users(UserPagerActivity.this); // была ошибка - 'UserPagerActivity' is not an enclosing class: №строки
         // это из-за <> в объявлении класса UserPagerActivity<UserPagerActivity> extends AppCompatActivity // удалить <> и их содержимое
-        //users = new Users(getApplicationContext()); // это был выход из положения на тот момент. найден случайно. 
+        //users = new Users(getApplicationContext()); // это был выход из положения на тот момент. найден случайно.
         viewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) { // устанавливаем адаптер с устаревшим методом (про актуальный не рассказали)
             @Override
             public Fragment getItem(int position) {

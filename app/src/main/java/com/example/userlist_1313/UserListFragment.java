@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,14 +20,16 @@ public class UserListFragment extends Fragment {
     RecyclerView recyclerView; // объявляем переменную компонента RecyclerView
     UserAdapter userAdapter; // объявляем адаптер
     Button addUserBtn; // кнопка добавления пользователя
+    Button addUsersAlotBtn; // кнопка добавления массы пользователей для наглядности
     Users users; // создаем объект, отвечающий за взаимоедействие с пользователями
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         View view = layoutInflater.inflate(R.layout.fragment_user_list, viewGroup, false);
-        addUserBtn = view.findViewById(R.id.addUserBtn); // находим кнопку добавления на вьюшке
-        recyclerView = view.findViewById(R.id.recyclerView);
         users = new Users(getActivity());
+        addUserBtn = view.findViewById(R.id.addUserBtn); // находим кнопку добавления одного пользователя на вьюшке
+        addUsersAlotBtn = view.findViewById(R.id.addUsersAlotBtn); // находим кнопку добавления массы пользователей на вьюшке
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity())); // планируем макет. Элементы располагаем друг под другом в контексте данной активности
         addUserBtn.setOnClickListener(new View.OnClickListener() { // вешаем событие на нее
             @Override
@@ -35,6 +38,18 @@ public class UserListFragment extends Fragment {
                 startActivity(intent); // запускаем активность
             }
         });
+
+        addUsersAlotBtn.setOnClickListener(new View.OnClickListener() { // вешаем событие на кнопку добавления массы народа
+            @Override
+            public void onClick(View view) {
+                addAlotOfUsers(20); // добавляение массы пользователей для наглядной работы resyclerView
+                Fragment fragment = new UserListFragment(); // создали сам фрагмент
+                FragmentTransaction fragmentManager = getFragmentManager().beginTransaction();
+                fragmentManager.replace(R.id.fragmentContainer, fragment).commit(); // обновление текущего фрагмента
+                //getActivity().recreate(); // дает наложение фрагментов
+            }
+        });
+
         return  view;
     }
 
@@ -100,7 +115,7 @@ public class UserListFragment extends Fragment {
         @Override // получим в телефоне список формата: Имя_nn Фамилия_nn
         public void onBindViewHolder(UserHolder userHolder, int position) { // Привязывает данные пользователя к  плашке userHolder
             User user = userList.get(position); // берем пользователя по порядку (по позиции) // здесь позиция изначально включена в метод
-            String userParameters = user.getUserName()+"  "+user.getUserLastName()+"  "+user.getPhone(); // каждую позицию списка //position - иттератор, индекс позиции
+            String userParameters = user.getUserName()+"     "+user.getUserLastName(); // каждую позицию списка //position - иттератор, индекс позиции
             userHolder.bind(userParameters, position); // привязывается к userHolder // здесь же передадим позицию юзера
             // у userHolder вызываем метод bind(), который осуществляет привязку
         }// связывает макет элемента с данными элемента // на терелку положи еду // данная конкретная еда лежит именно на этой тарелке
@@ -110,4 +125,17 @@ public class UserListFragment extends Fragment {
             return userList.size(); // В данном случае вернет к-во элементов коллекции контактов
         }
     }//class UserAdapter
+
+    public void addAlotOfUsers(int countUsers) { // добавляет массу пользователей, для наглядной работы resyclerView
+
+        for (int i = 0; i < countUsers; i++) {
+            User user = new User(); // вызов конструктора пользователя без идетификатора // пользователь будет создан новый с новым uuid
+            user.setUserName("Имя_"+i); // вычитываем из поля имя пользователя и назначаем в объект пользователя
+            user.setUserLastName("Фамилия_"+i);
+            user.setPhone("+7 333 "+i);
+            // создаем запись в базе данных
+            users.addUser(user); // в метод добавления юзера передаем юзера
+        }
+
+    }
 }

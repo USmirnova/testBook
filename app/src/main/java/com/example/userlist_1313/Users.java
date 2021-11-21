@@ -56,6 +56,8 @@ public class Users {
     } // возвращаем объект нашего курсора
 
     public ArrayList<User> getUserList() { // возвращает список пользователей с типом данных ArrayList<Users>
+
+
         this.userList = new ArrayList();
         UserCursorWrapper cursorWrapper = queryUsers(); // получаем объект курсора
         try {
@@ -69,12 +71,14 @@ public class Users {
         finally { // чтобы не произошло в процессе (исключения, или все хорошо) закрываем курсор
             cursorWrapper.close(); // после работы с б.д. нужно ее закрыть (закрыть подключение?)
         }
-        /*for (int i = 0; i < 100; i++) { // формируем  список контактов
-            User user = new User(); // создаем объект пользователя, с uuid
-            user.setUserName("Имя_"+i); // задаем имя
-            user.setUserLastName("Фамилия_"+i); // и фамилию
-            userList.add(user);// Добавляем пользователя в коллекцию пользователей
-        }*/
+        // автозаполнение на новом устройстве, чтобы наглядно видна была работа resyclerView
+//        for (int i = 0; i < 5; i++) { // формируем  список контактов // автозаполнение для наглядности
+//            User user = new User(); // создаем объект пользователя, uuid автоматически формируется
+//            user.setUserName("Имя_"+i); // задаем имя
+//            user.setUserLastName("Фамилия_"+i); // и фамилию
+//             user.setPhone("+7 322 "+i); //
+//            userList.add(user);// Добавляем пользователя в коллекцию пользователей
+//        }
         return userList; // возвращает список пользователей
     }
 
@@ -88,10 +92,14 @@ public class Users {
 
     public void deleteUser (UUID uuid) { // удаление пользователя
         String uuidString = uuid.toString(); // uuid - это объект, а при обращении к б.д. мы не можем слать объект, приобразуем его в строку.
-        System.out.println("----------------------удаляем---------------------------"+uuidString);
+        //System.out.println("----------------------удаляем---------------------------"+uuidString); // в констоль для наглядности
         // нужно сопоставить данные колонки uuid и переданный uuid
         // database.delete(UserDBSchema.UserTable.NAME, UserDBSchema.Cols.UUID+"="+uuidString); // опасность sql инъекции
         // безопасно делать это через подготовленные запросы
         database.delete(UserDBSchema.UserTable.NAME, UserDBSchema.Cols.UUID+"=?", new String[]{uuidString}); // отдельно имя колонки и отдельно ее содержимое, но переданное массивом строк, что исключает атаку
+        // удаление тестовых пользователей
+//        for (int i = 4; i <20 ; i++) {
+//            database.delete(UserDBSchema.UserTable.NAME, UserDBSchema.Cols.USERNAME+"=?", new String[]{"Имя_"+i+""});
+//        }
     }
 }

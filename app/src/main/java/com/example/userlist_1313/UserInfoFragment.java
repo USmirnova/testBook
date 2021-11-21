@@ -52,7 +52,7 @@ public class UserInfoFragment extends Fragment {
                 intent.putExtra("userPosition", userPosition); // передаем позицию в форму
                 startActivity(intent); // запускаем активность
                 getActivity().finish(); // возвращение на главную активность (если из фрагмента добавляем getActivity().), минуя промежуточные
-                Toast.makeText(getContext(), "Редактирование..."+user.getUuid(), Toast.LENGTH_LONG).show(); // короткое уведомление об удалении контакта
+                //Toast.makeText(getContext(), "Редактирование...", Toast.LENGTH_LONG).show(); // короткое уведомление об удалении контакта
             }
         });
 
@@ -61,11 +61,10 @@ public class UserInfoFragment extends Fragment {
             public void onClick(View view) {
                 //запрос к б.д. удалить запись с uuid  данного пользователя
                 // закрыть б.д.
-                Toast.makeText(getContext(), "Удаление..."+user.getUuid(), Toast.LENGTH_LONG).show(); // короткое уведомление об удалении контакта
                 users = new Users(getContext()); // получаем сюда объект users
                 users.deleteUser(user.getUuid()); // не получив объект users будем ссылаться на объект null и приложение будет падать
                 getActivity().onBackPressed();// возвращаемся на предыдущую активность
-
+                Toast.makeText(getContext(), "Удаление...", Toast.LENGTH_SHORT).show(); // короткое уведомление об удалении контакта
             }
         });
 
