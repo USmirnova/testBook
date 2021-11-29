@@ -1,5 +1,6 @@
 package com.example.userlist_1313;
-
+// главная активность. В ней раньше размещался непосредственно список пользователей, а теперь
+// здесь отображается фрагмент UserListFragment, т.е. фрагмент со списком пользователей
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;

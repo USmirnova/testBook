@@ -1,5 +1,6 @@
 package com.example.userlist_1313;
 // сюда перенесли содержимое главной активтости, она теперь является лишь фрагментом на экране
+// Список пользователей
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,11 +27,13 @@ public class UserListFragment extends Fragment {
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         View view = layoutInflater.inflate(R.layout.fragment_user_list, viewGroup, false);
+
         users = new Users(getActivity());
         addUserBtn = view.findViewById(R.id.addUserBtn); // находим кнопку добавления одного пользователя на вьюшке
         addUsersAlotBtn = view.findViewById(R.id.addUsersAlotBtn); // находим кнопку добавления массы пользователей на вьюшке
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity())); // планируем макет. Элементы располагаем друг под другом в контексте данной активности
+
         addUserBtn.setOnClickListener(new View.OnClickListener() { // вешаем событие на нее
             @Override
             public void onClick(View view) {
@@ -68,7 +71,7 @@ public class UserListFragment extends Fragment {
     // Класс для настройки самого элемента, наследуемый от RecyclerView.ViewHolder. Свойство itemView из него.
     // интерфейс View.OnClickListener - чтобы элементы были кликабельны. Реализуем onClick()
     public class UserHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView itemTextView; // Объявляем переменную текстовой вьюшки из макете элемента
+        TextView itemTextView; // Объявляем переменную текстовой вьюшки из макета элемента
         String userParameters; // параметры контакта, которые будем выводить в списке RecyclerView, например имя и фамилию
         int userPosition; // для поиска юзера в списке // передавать будем в bind
 

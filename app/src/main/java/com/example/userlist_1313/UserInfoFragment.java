@@ -1,5 +1,6 @@
 package com.example.userlist_1313;
-// переносим сюда данные из класса InfoUserActivity.java
+// переносим сюда данные из класса InfoUserActivity.java // InfoUserActivity.java уже удален, т.к. не используется
+// Активность(фрагмент) с данными пользователя, с кнопками "редактировать", "удалить", "вернуться на главный экран"
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;

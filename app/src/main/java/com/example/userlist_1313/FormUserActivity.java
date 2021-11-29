@@ -1,5 +1,5 @@
 package com.example.userlist_1313;
-
+//общая активность для создания нового пользователя и для редактирования существующего
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;

@@ -29,7 +29,9 @@ public class UserPagerActivity extends AppCompatActivity {
                 Fragment fragment = new UserInfoFragment(); // устанавливаем фрагмент
                 Bundle bundle = new Bundle(); // bundle - по сути та же коллекция // для передачи данных
                 bundle.putSerializable("user", user); //передаем пользователя // Класс User.java надо сделать сериализуемым // дописать implements Serializable // иначе подчеркнет красным
-                bundle.putSerializable("userPosition", userPosition); // передаем позицию, т.к. без нее на редактирование открывается дефолтное значение 0
+                //bundle.putSerializable("userPosition", userPosition); // передаем позицию, т.к. без нее на редактирование открывается дефолтное значение 0
+                // а с userPosition при редактировании мы попадаем в редактирование элемента с которого начали листать, т.е. который в конце кода был передан во viewPager  - viewPager.setCurrentItem(userPosition);
+                bundle.putSerializable("userPosition", position); // теперь редактируется нужный пользователь
                 fragment.setArguments(bundle); // получаем пользователя
                 return fragment; // возвращаем фрагмент
             }

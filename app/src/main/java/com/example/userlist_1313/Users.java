@@ -98,8 +98,8 @@ public class Users {
         // безопасно делать это через подготовленные запросы
         database.delete(UserDBSchema.UserTable.NAME, UserDBSchema.Cols.UUID+"=?", new String[]{uuidString}); // отдельно имя колонки и отдельно ее содержимое, но переданное массивом строк, что исключает атаку
          //удаление тестовых пользователей
-        for (int i = 0; i <20 ; i++) {
-            database.delete(UserDBSchema.UserTable.NAME, UserDBSchema.Cols.USERNAME+"=?", new String[]{"Имя_"+i+""});
-        }
+//        for (int i = 0; i <20 ; i++) {
+//            database.delete(UserDBSchema.UserTable.NAME, UserDBSchema.Cols.USERNAME+"=?", new String[]{"Имя_"+i+""});
+//        }
     }
 }
