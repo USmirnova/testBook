@@ -13,9 +13,6 @@
             android:name=".UserPagerActivity"
             android:exported="false" />
         <activity
-            android:name=".InfoUserActivity"
-            android:exported="false" />
-        <activity
             android:name=".FormUserActivity"
             android:exported="false" />
         <activity android:name=".MainActivity">
